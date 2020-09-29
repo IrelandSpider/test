@@ -1,20 +1,21 @@
-name: CI
-# 在push的时候触发这个workflow
+name: Python package
+
 on: [push]
-# workflow的job内容
+
 jobs:
   build:
-    # 跑job的系统
+
     runs-on: ubuntu-latest
-    # 定义需要跑的脚本
+
     steps:
-    # 使用checkout action
     - uses: actions/checkout@v2
-    # Hello World
-    - name: Run a one-line script
-      run: echo Hello, world!
-    # 打印多行
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v2
+      with:
+        # Semantic version range syntax or exact version of a Python version
+        python-version: '3.x' 
+        # Optional - x64 or x86 architecture, defaults to x64
+        architecture: 'x64' 
+    # You can test your matrix by printing the current Python version
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
